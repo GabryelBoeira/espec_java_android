@@ -1,5 +1,7 @@
 package com.br.utfpr.gabryel.reservaveicular.model;
 
+import com.br.utfpr.gabryel.reservaveicular.model.enums.TipoCnh;
+
 import java.time.LocalDate;
 
 import lombok.Builder;
@@ -12,5 +14,5 @@ public class Motorista {
     private int id;
     private String nome;
     private LocalDate dtNascimento;
-    private String cpf;
+    private TipoCnh cnh;
 }
