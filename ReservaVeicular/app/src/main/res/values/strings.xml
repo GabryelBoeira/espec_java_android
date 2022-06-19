@@ -7,4 +7,5 @@
     <string name="nao">Não</string>
     <string name="sim">Sim</string>
     <string name="tipoCnh">Tipo da CNH</string>
+    <string name="selecioneCnh">Selecione uma CNH:</string>
 </resources>
