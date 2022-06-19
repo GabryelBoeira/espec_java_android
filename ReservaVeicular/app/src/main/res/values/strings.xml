@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Reserva Veicular</string>
+    <string name="cadastroMotorista">Cadastro do Motorista</string>
+    <string name="nome">Nome</string>
+    <string name="data_nascimento">Data de Nascimento</string>
+    <string name="possui_ear">Possui EAR ?</string>
+    <string name="nao">Não</string>
+    <string name="sim">Sim</string>
+    <string name="tipoCnh">Tipo da CNH</string>
 </resources>
