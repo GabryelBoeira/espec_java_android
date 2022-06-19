@@ -7,5 +7,8 @@
     <string name="nao">Não</string>
     <string name="sim">Sim</string>
     <string name="tipoCnh">Tipo da CNH</string>
-    <string name="selecioneCnh">Selecione uma CNH:</string>
+    <string name="selecioneCnh">Selecione um tipo de CNH:</string>
+    <string name="cadastroAtivo">Cadastro Ativo</string>
+    <string name="limpar">Limpar</string>
+    <string name="salvar">Salvar</string>
 </resources>

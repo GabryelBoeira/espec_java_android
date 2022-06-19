@@ -125,5 +125,40 @@
                             android:text="@string/nao" />
                 </RadioGroup>
 
+                <CheckBox
+                    android:id="@+id/cadastroAtivo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/cadastroAtivo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+                <Button
+                    android:id="@+id/btnLimpar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/limpar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cadastroAtivo" />
+
+                <Button
+                    android:id="@+id/btnSalvar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="176dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/salvar"
+                    app:layout_constraintStart_toEndOf="@+id/btnLimpar"
+                    app:layout_constraintTop_toBottomOf="@+id/cadastroAtivo" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
