@@ -15,4 +15,6 @@ public class Motorista {
     private String nome;
     private LocalDate dtNascimento;
     private TipoCnh cnh;
+    private boolean possuiEar;
+    private boolean ativo;
 }
