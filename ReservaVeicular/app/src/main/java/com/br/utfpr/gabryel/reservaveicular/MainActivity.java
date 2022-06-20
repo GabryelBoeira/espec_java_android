@@ -1,7 +1,5 @@
 package com.br.utfpr.gabryel.reservaveicular;
 
-import static java.lang.String.*;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
