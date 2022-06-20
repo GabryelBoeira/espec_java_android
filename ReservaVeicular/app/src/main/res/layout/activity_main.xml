@@ -22,7 +22,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="32dp"
-                    android:text="@string/cadastroMotorista"
+                    android:text="@string/cadastro_motorista"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toTopOf="@+id/editNomeMotorista"
@@ -70,7 +70,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/selecioneCnh"
+                    android:text="@string/selecione_cnh"
                     android:textAlignment="viewStart"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -111,17 +111,17 @@
                             android:text="@string/possui_ear" />
 
                         <RadioButton
-                            android:id="@+id/radio_pirates"
+                            android:id="@+id/radioSim"
                             android:layout_width="70dp"
                             android:layout_height="match_parent"
-                            android:onClick="onRadioButtonClicked"
+                            android:onClick="validarEar"
                             android:text="@string/sim" />
 
                         <RadioButton
-                            android:id="@+id/radio_ninjas"
+                            android:id="@+id/radioNao"
                             android:layout_width="70dp"
                             android:layout_height="match_parent"
-                            android:onClick="onRadioButtonClicked"
+                            android:onClick="validarEar"
                             android:text="@string/nao" />
                 </RadioGroup>
 
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="@string/cadastroAtivo"
+                    android:text="@string/cadastro_ativo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
@@ -143,6 +143,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
+                    android:onClick="limparCampos"
                     android:text="@string/limpar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -155,6 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="176dp"
                     android:layout_marginTop="32dp"
+                    android:onClick="validarAlteracoes"
                     android:text="@string/salvar"
                     app:layout_constraintStart_toEndOf="@+id/btnLimpar"
                     app:layout_constraintTop_toBottomOf="@+id/cadastroAtivo" />
