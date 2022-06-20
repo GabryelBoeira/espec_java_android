@@ -4,11 +4,6 @@ import com.br.utfpr.gabryel.reservaveicular.model.enums.FormaDeUso;
 
 import java.time.LocalDateTime;
 
-import lombok.Builder;
-import lombok.Data;
-
-@Data
-@Builder
 public class Reserva {
 
     private int id;
@@ -17,4 +12,52 @@ public class Reserva {
     private LocalDateTime dtFim;
     private Motorista motorista;
     private Veiculo veiculo;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public FormaDeUso getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(FormaDeUso tipo) {
+        this.tipo = tipo;
+    }
+
+    public LocalDateTime getDtInicio() {
+        return dtInicio;
+    }
+
+    public void setDtInicio(LocalDateTime dtInicio) {
+        this.dtInicio = dtInicio;
+    }
+
+    public LocalDateTime getDtFim() {
+        return dtFim;
+    }
+
+    public void setDtFim(LocalDateTime dtFim) {
+        this.dtFim = dtFim;
+    }
+
+    public Motorista getMotorista() {
+        return motorista;
+    }
+
+    public void setMotorista(Motorista motorista) {
+        this.motorista = motorista;
+    }
+
+    public Veiculo getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
+    }
 }
