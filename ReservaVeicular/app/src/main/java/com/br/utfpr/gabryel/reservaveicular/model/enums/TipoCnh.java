@@ -25,6 +25,5 @@ public enum TipoCnh {
 
     public static List<String> descricaoList() {
         return Arrays.asList(A.descricao, B.descricao, C.descricao, D.descricao, E.descricao);
-
     }
 }

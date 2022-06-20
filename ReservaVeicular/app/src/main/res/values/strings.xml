@@ -1,14 +1,19 @@
 <resources>
     <string name="app_name">Reserva Veicular</string>
-    <string name="cadastroMotorista">Cadastro do Motorista</string>
+    <string name="cadastro_motorista">Cadastro do Motorista</string>
     <string name="nome">Nome</string>
     <string name="data_nascimento">Data de Nascimento</string>
-    <string name="possui_ear">Possui EAR ?</string>
+    <string name="possui_ear">Possui EAR</string>
     <string name="nao">Não</string>
     <string name="sim">Sim</string>
     <string name="tipoCnh">Tipo da CNH</string>
-    <string name="selecioneCnh">Selecione um tipo de CNH:</string>
-    <string name="cadastroAtivo">Cadastro Ativo</string>
+    <string name="selecione_cnh">Selecione um tipo de CNH:</string>
+    <string name="cadastro_ativo">Cadastro Ativo</string>
     <string name="limpar">Limpar</string>
     <string name="salvar">Salvar</string>
+    <string name="limpar_campos">Campos Limpos com sucesso</string>
+    <string name="obridatorio">deve ser informado</string>
+    <string name="sucesso_salvar">Salvo com Sucesso</string>
+    <string name="erro_salvar">Erro ao Salvar</string>
+    <string name="erro_interno">Erro interno</string>
 </resources>
