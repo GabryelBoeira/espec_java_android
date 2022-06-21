@@ -1,5 +1,6 @@
 package com.br.utfpr.gabryel.reservaveicular;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -42,11 +43,8 @@ public class MotoristaActivity extends AppCompatActivity {
         spinnerCnh = findViewById(R.id.spinnerCnh);
         spinnerCnh.setAdapter(montarUtils.carregarDadosSpinner(TipoCnh.descricaoList()));
 
-        nomeEdit = findViewById(R.id.editNomeMotorista);
-        dtNascimentoEdit = findViewById(R.id.editDtNascimento);
-        checkAtivo = findViewById(R.id.cadastroAtivo);
-        radioSim = findViewById(R.id.radioSim);
-        radioNao = findViewById(R.id.radioNao);
+        startCompomentes();
+        atualizarCampos();
     }
 
     public void showDatePickerDialog(View v) {
@@ -95,7 +93,7 @@ public class MotoristaActivity extends AppCompatActivity {
 
     private String salvar(String nome, String dtNascinemto, Boolean possuiEar, TipoCnh tipoCnh, boolean ativo) {
         try {
-            Motorista motorista = new Motorista(nome, LocalDate.parse(dtNascinemto, DateTimeFormatter.ofPattern("dd/MM/yyyy")), tipoCnh, possuiEar,ativo);
+            Motorista motorista = new Motorista(nome, LocalDate.parse(dtNascinemto, DateTimeFormatter.ofPattern("dd/MM/yyyy")), tipoCnh, possuiEar, ativo);
             return motorista.getNome() != null ? getString(R.string.info_sucesso_salvar) : getString(R.string.info_erro_salvar);
         } catch (Exception e) {
             return getString(R.string.info_erro_interno);
@@ -112,4 +110,47 @@ public class MotoristaActivity extends AppCompatActivity {
         return null;
     }
 
+    private void startCompomentes() {
+        nomeEdit = findViewById(R.id.editNomeMotorista);
+        dtNascimentoEdit = findViewById(R.id.editDtNascimento);
+        checkAtivo = findViewById(R.id.cadastroAtivo);
+        radioSim = findViewById(R.id.radioSim);
+        radioNao = findViewById(R.id.radioNao);
+    }
+
+    private void atualizarCampos() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if (bundle == null) return;
+
+        int id = bundle.getInt("id_motorista");
+        String nome = bundle.getString("nome_motorista");
+        String dtNascinemto = bundle.getString("dt_nascimento_motorista");
+        TipoCnh tipoCnh = TipoCnh.valueOf(bundle.getString("cnh_motorista"));
+        boolean ear = bundle.getBoolean("ear_motorista");
+        boolean ativo = bundle.getBoolean("ativo_motorista");
+
+        if (StringUtils.isNotBlank(nome)) nomeEdit.setText(nome);
+        if (StringUtils.isNotBlank(dtNascinemto)) dtNascimentoEdit.setText(dtNascinemto);
+        spinnerCnh.setSelection(getIndex(spinnerCnh, tipoCnh));
+        checkAtivo.setChecked(ativo);
+        if (ear) {
+            radioSim.setChecked(true);
+            radioNao.setChecked(false);
+        } else {
+            radioSim.setChecked(false);
+            radioNao.setChecked(true);
+        }
+
+    }
+
+    private int getIndex(Spinner spinner, TipoCnh cnh) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(cnh.getNome())) {
+                return i;
+            }
+        }
+        return 0;
+    }
 }

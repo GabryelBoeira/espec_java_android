@@ -31,6 +31,7 @@
     <string name="info_limpar_campos">Campos Limpos com sucesso</string>
     <string name="info_obridatorio">deve ser informado</string>
     <string name="info_motorista_selecionado">"Motorista selecionado: \"%s\"</string>
+    <string name="novo_motorista">Novo Motorista</string>
 
 
 </resources>

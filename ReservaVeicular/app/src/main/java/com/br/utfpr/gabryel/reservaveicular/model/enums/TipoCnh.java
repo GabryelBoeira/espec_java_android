@@ -15,11 +15,11 @@ public enum TipoCnh {
         this.descricao = descricao;
     }
 
-    String getKey() {
+    public String getKey() {
         return this.name();
     }
 
-    String getNome() {
+    public String getNome() {
         return this.descricao;
     }
 
