@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/info_nome_motorista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_start"
+        android:layout_marginTop="@dimen/margin_top"
+        android:textSize="18sp"
+        android:text="@string/label_nome"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/design_default_color_secondary_variant"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/info_dt_nascimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_marginStart="@dimen/margin_start"
+        android:text="@string/label_data_nascimento" />
+
+    <TextView
+        android:id="@+id/info_cnh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="2"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginEnd="@dimen/margin_end"
+        android:text="@string/label_cnh" />
+
+    <TextView
+        android:id="@+id/info_ativo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="2"
+        android:layout_marginEnd="@dimen/margin_end"
+        android:text="@string/label_ativo_inativo" />
+</GridLayout>
