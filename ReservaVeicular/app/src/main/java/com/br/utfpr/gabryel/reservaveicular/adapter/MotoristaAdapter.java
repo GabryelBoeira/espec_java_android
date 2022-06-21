@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -14,12 +15,12 @@ import com.br.utfpr.gabryel.reservaveicular.model.Motorista;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class MotoristaAdapter extends BaseAdapter {
+public class MotoristaAdapter extends ArrayAdapter<Motorista> {
 
     private Context contexto;
     private List<Motorista> motoristaList;
 
-    private static class MotoristaLayout {
+    static class MotoristaLayout {
         public TextView textViewNome;
         public TextView textViewDtNascimento;
         public TextView textViewCnh;
@@ -27,6 +28,7 @@ public class MotoristaAdapter extends BaseAdapter {
     }
 
     public MotoristaAdapter(final Context contexto, final List<Motorista> motoristaList) {
+        super(contexto, -1, motoristaList);
         this.contexto = contexto;
         this.motoristaList = motoristaList;
     }
@@ -37,19 +39,14 @@ public class MotoristaAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return motoristaList.get(i);
-    }
-
-    @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
     public View getView(int posicao, View view, ViewGroup grupo) {
         MotoristaLayout layout;
-        Motorista motorista = (Motorista) getItem(posicao);
+        Motorista motorista = getItem(posicao);
 
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

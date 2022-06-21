@@ -2,6 +2,7 @@ package com.br.utfpr.gabryel.reservaveicular;
 
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,11 +23,16 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void carregarInformacoes() {
-
         MotoristaAdapter adapter = new MotoristaAdapter(this, new Motorista().criarBaseDados());
         listViewMotoristas.setAdapter(adapter);
-    }
 
+        listViewMotoristas.setOnItemClickListener((parent, view, position, id) -> {
+            final Motorista motorista = (Motorista) parent.getItemAtPosition(position);
+            Toast.makeText(getApplicationContext(),
+                            getString(R.string.info_motorista_selecionado, motorista.getNome()), Toast.LENGTH_SHORT)
+                    .show();
+        });
+    }
 
 
 }
