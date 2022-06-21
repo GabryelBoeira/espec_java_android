@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         radioNao.setChecked(false);
         spinnerCnh.setSelection(0);
 
-        Toast.makeText(this, getString(R.string.limpar_campos), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.info_limpar_campos), Toast.LENGTH_SHORT).show();
     }
 
     public void validarAlteracoes(View v) {
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             mensagem = salvar(nome, dtNascinemto, radioSim.isChecked() ? radioSim.isChecked() : radioNao.isChecked(),
                     TipoCnh.values()[spinnerCnh.getSelectedItemPosition()], checkAtivo.isChecked());
 
-            if (mensagem.equalsIgnoreCase(getString(R.string.sucesso_salvar))) {
+            if (mensagem.equalsIgnoreCase(getString(R.string.info_sucesso_salvar))) {
                 nomeEdit.setText(null);
                 dtNascimentoEdit.setText(null);
                 checkAtivo.setChecked(false);
@@ -96,19 +96,19 @@ public class MainActivity extends AppCompatActivity {
     private String salvar(String nome, String dtNascinemto, Boolean possuiEar, TipoCnh tipoCnh, boolean ativo) {
         try {
             Motorista motorista = new Motorista(nome, LocalDate.parse(dtNascinemto, DateTimeFormatter.ofPattern("dd/MM/yyyy")), tipoCnh, possuiEar,ativo);
-            return motorista.getNome() != null ? getString(R.string.sucesso_salvar) : getString(R.string.erro_salvar);
+            return motorista.getNome() != null ? getString(R.string.info_sucesso_salvar) : getString(R.string.info_erro_salvar);
         } catch (Exception e) {
-            return getString(R.string.erro_interno);
+            return getString(R.string.info_erro_interno);
         }
     }
 
     private String validarEInformar(String nome, String dtNascinemto, boolean possuiEar) {
         if (StringUtils.isBlank(nome))
-            return getString(R.string.nome) + " " + getString(R.string.obridatorio);
+            return getString(R.string.info_nome, getString(R.string.info_obridatorio));
         if (StringUtils.isBlank(dtNascinemto))
-            return getString(R.string.data_nascimento) + " " + getString(R.string.obridatorio);
+            return getString(R.string.info_data_nascimento, getString(R.string.info_obridatorio));
         if (possuiEar)
-            return getString(R.string.possui_ear) + " " + getString(R.string.obridatorio);
+            return getString(R.string.info_possui_ear, getString(R.string.info_obridatorio));
         return null;
     }
 
