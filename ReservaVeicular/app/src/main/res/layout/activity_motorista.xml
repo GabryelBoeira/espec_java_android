@@ -118,40 +118,9 @@
                     android:layout_marginEnd="@dimen/margin_end"
                     android:minHeight="48dp"
                     android:text="@string/label_cadastro_ativo"
-                    app:layout_constraintBottom_toTopOf="@+id/btnLimpar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-                <Button
-                    android:id="@+id/btnLimpar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_start"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="@dimen/margin_end"
-                    android:onClick="cancelarEdicao"
-                    android:layout_marginBottom="@dimen/margin_bottom"
-                    android:text="@string/label_cancelar"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cadastroAtivo" />
-
-                <Button
-                    android:id="@+id/btnSalvar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_start"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="@dimen/margin_end"
-                    android:onClick="validarAlteracoes"
-                    android:text="@string/label_salvar"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cadastroAtivo" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

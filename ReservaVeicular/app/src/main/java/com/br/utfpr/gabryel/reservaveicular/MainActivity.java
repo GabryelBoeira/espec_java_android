@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.br.utfpr.gabryel.reservaveicular.adapter.MotoristaAdapter;
 import com.br.utfpr.gabryel.reservaveicular.model.Motorista;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -20,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private static final List<Motorista> motoristaList = new Motorista().criarBaseDados();
     private Integer cadastroSelecionado = -1;
     private MotoristaAdapter adapter;
-    FloatingActionButton fab;
 
     private void carregarInformacoesListView() {
         adapter = new MotoristaAdapter(this, motoristaList);
@@ -50,15 +48,12 @@ public class MainActivity extends AppCompatActivity {
             editarMotorista(position, (Motorista) parent.getItemAtPosition(position));
             return true;
         });
-
-        fab = findViewById(R.id.fab_novo_motorista);
-        fab.setOnClickListener(view -> novoMotorista());
         carregarInformacoesListView();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_acoes, menu);
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
         return true;
     }
 
@@ -66,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.item_sobre) {
             startActivity(new Intent(this, AppInfoActivity.class));
+            return true;
+        }
+        if (menuItem.getItemId() == R.id.item_adicionar_motorista) {
+            novoMotorista();
             return true;
         }
         return super.onOptionsItemSelected(menuItem);

@@ -3,6 +3,8 @@ package com.br.utfpr.gabryel.reservaveicular;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -35,19 +37,6 @@ public class MotoristaActivity extends AppCompatActivity {
     public static final Integer NEW = 0;
     public static final Integer EDIT = 1;
 
-    public static void editarMotorista(AppCompatActivity activity, final Motorista motorista) {
-        Intent intent = new Intent(activity, MotoristaActivity.class);
-        intent.putExtra(MODO, EDIT);
-        intent.putExtras(putBundle(motorista));
-        activity.startActivityForResult(intent, EDIT);
-    }
-
-    public static void novoMotorista(AppCompatActivity activity) {
-        Intent intent = new Intent(activity, MotoristaActivity.class);
-        intent.putExtra(MODO, NEW);
-        activity.startActivityForResult(intent, NEW);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +56,50 @@ public class MotoristaActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity_motorista, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == R.id.salvar_motorista) {
+            validarAlteracoes();
+            return true;
+        }
+        if (menuItem.getItemId() == R.id.item_limpar) {
+            nomeEdit.setText(null);
+            dtNascimentoEdit.setText(null);
+            checkAtivo.setChecked(false);
+            radioSim.setChecked(false);
+            radioNao.setChecked(false);
+            spinnerCnh.setSelection(0);
+            Toast.makeText(this, getString(R.string.info_limpar_campos), Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(menuItem);
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
+    }
+
+    public static void editarMotorista(AppCompatActivity activity, final Motorista motorista) {
+        Intent intent = new Intent(activity, MotoristaActivity.class);
+        intent.putExtra(MODO, EDIT);
+        intent.putExtras(putBundle(motorista));
+        activity.startActivityForResult(intent, EDIT);
+    }
+
+    public static void novoMotorista(AppCompatActivity activity) {
+        Intent intent = new Intent(activity, MotoristaActivity.class);
+        intent.putExtra(MODO, NEW);
+        activity.startActivityForResult(intent, NEW);
+    }
+
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment(dtNascimentoEdit);
         newFragment.show(getSupportFragmentManager(), "datePicker");
@@ -81,13 +114,7 @@ public class MotoristaActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-    @Override
-    public void onBackPressed() {
-        setResult(Activity.RESULT_CANCELED);
-        finish();
-    }
-
-    public void validarAlteracoes(View v) {
+    private void validarAlteracoes() {
         String mensagem;
         String nome = nomeEdit.getText().toString();
         String dtNascinemto = dtNascimentoEdit.getText().toString();
