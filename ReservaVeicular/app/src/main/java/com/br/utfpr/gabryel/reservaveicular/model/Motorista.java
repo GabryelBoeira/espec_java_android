@@ -114,4 +114,15 @@ public class Motorista {
         this.ativo = bundle.getBoolean("ativo_motorista");
         return this;
     }
+
+    public static Bundle motoristaParseBundle(Motorista motorista) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id_motorista", motorista.getId());
+        bundle.putString("nome_motorista", motorista.getNome());
+        bundle.putString("dt_nascimento_motorista", motorista.getDtNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        bundle.putString("cnh_motorista", motorista.getCnh().getKey());
+        bundle.putBoolean("ear_motorista", motorista.isPossuiEar());
+        bundle.putBoolean("ativo_motorista", motorista.isAtivo());
+        return bundle;
+    }
 }

@@ -42,15 +42,13 @@ public class MotoristaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_motorista);
+        startCompomentes();
+        spinnerCnh.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, TipoCnh.descricaoList()));
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        startCompomentes();
-
-        spinnerCnh.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, TipoCnh.descricaoList()));
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -59,7 +57,7 @@ public class MotoristaActivity extends AppCompatActivity {
             setTitle(getString(R.string.title_cadastro_motorista));
         else {
             setTitle(getString(R.string.title_alterar_motorista));
-            atualizarCampos();
+            atualizarCampos(bundle);
         }
     }
 
@@ -101,7 +99,7 @@ public class MotoristaActivity extends AppCompatActivity {
     public static void editarMotorista(AppCompatActivity activity, final Motorista motorista) {
         Intent intent = new Intent(activity, MotoristaActivity.class);
         intent.putExtra(MODO, EDIT);
-        intent.putExtras(putBundle(motorista));
+        intent.putExtras(Motorista.motoristaParseBundle(motorista));
         activity.startActivityForResult(intent, EDIT);
     }
 
@@ -139,12 +137,7 @@ public class MotoristaActivity extends AppCompatActivity {
                 checkAtivo.isChecked());
 
         Intent intent = new Intent();
-        intent.putExtra("id_motorista", motorista.getId());
-        intent.putExtra("nome_motorista", motorista.getNome());
-        intent.putExtra("dt_nascimento_motorista", motorista.getDtNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        intent.putExtra("cnh_motorista", motorista.getCnh().getKey());
-        intent.putExtra("ear_motorista", motorista.isPossuiEar());
-        intent.putExtra("ativo_motorista", motorista.isAtivo());
+        intent.putExtras(Motorista.motoristaParseBundle(motorista));
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
@@ -159,17 +152,6 @@ public class MotoristaActivity extends AppCompatActivity {
         return null;
     }
 
-    private static Bundle putBundle(Motorista motorista) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("id_motorista", motorista.getId());
-        bundle.putString("nome_motorista", motorista.getNome());
-        bundle.putString("dt_nascimento_motorista", motorista.getDtNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        bundle.putString("cnh_motorista", motorista.getCnh().getKey());
-        bundle.putBoolean("ear_motorista", motorista.isPossuiEar());
-        bundle.putBoolean("ativo_motorista", motorista.isAtivo());
-        return bundle;
-    }
-
     private void startCompomentes() {
         spinnerCnh = findViewById(R.id.spinnerCnh);
         nomeEdit = findViewById(R.id.editNomeMotorista);
@@ -179,31 +161,18 @@ public class MotoristaActivity extends AppCompatActivity {
         radioNao = findViewById(R.id.radioNao);
     }
 
-    private void atualizarCampos() {
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
+    private void atualizarCampos(Bundle bundle) {
         if (bundle == null) return;
+        Motorista motorista = new Motorista().bundleParseMotorista(bundle, bundle.getInt("id_motorista"));
 
-        int id = bundle.getInt("id_motorista");
-        String nome = bundle.getString("nome_motorista");
-        String dtNascinemto = bundle.getString("dt_nascimento_motorista");
-        TipoCnh tipoCnh = TipoCnh.valueOf(bundle.getString("cnh_motorista"));
-        boolean ear = bundle.getBoolean("ear_motorista");
-        boolean ativo = bundle.getBoolean("ativo_motorista");
-
-        if (StringUtils.isNotBlank(nome)) nomeEdit.setText(nome);
-        if (StringUtils.isNotBlank(dtNascinemto)) dtNascimentoEdit.setText(dtNascinemto);
-        spinnerCnh.setSelection(getIndex(spinnerCnh, tipoCnh));
-        checkAtivo.setChecked(ativo);
-        if (ear) {
+        nomeEdit.setText(motorista.getNome());
+        dtNascimentoEdit.setText(bundle.getString("dt_nascimento_motorista"));
+        spinnerCnh.setSelection(getIndex(spinnerCnh, motorista.getCnh()));
+        checkAtivo.setChecked(motorista.isAtivo());
+        if (motorista.isPossuiEar())
             radioSim.setChecked(true);
-            radioNao.setChecked(false);
-        } else {
-            radioSim.setChecked(false);
+        else
             radioNao.setChecked(true);
-        }
-
     }
 
     private int getIndex(Spinner spinner, TipoCnh cnh) {
