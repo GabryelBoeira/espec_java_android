@@ -41,6 +41,9 @@
     <string name="info_sobre_app">O aplicativo tem como objetivo realizar e gerenciar as reservas de utilização de veículos em uma mesma residência, utilizando data e o tempo de utilização, as informações do veículo que irá utilizar, e quem estará utilizando o veículo. Realizado para a disciplina de Android</string>
     <string name="label_sobre">Sobre</string>
     <string name="info_curso">Especialização em Tecnologia Java - UTFPR</string>
+    <string name="label_novo">novo</string>
+    <string name="title_alterar_motorista">Alterar Motorista</string>
+    <string name="label_cancelar">Cancelar</string>
 
 
 </resources>

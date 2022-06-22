@@ -13,8 +13,5 @@ public class MontarUtils {
         this.CONTEXT = context;
     }
 
-    public ArrayAdapter<String> carregarDadosSpinner(final List<String> valores) {
-        return new ArrayAdapter<>(CONTEXT, android.R.layout.simple_spinner_item, valores);
-    }
 
 }

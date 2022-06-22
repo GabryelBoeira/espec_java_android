@@ -1,8 +1,10 @@
 package com.br.utfpr.gabryel.reservaveicular;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -15,7 +17,6 @@ import androidx.fragment.app.DialogFragment;
 import com.br.utfpr.gabryel.reservaveicular.fragment.DatePickerFragment;
 import com.br.utfpr.gabryel.reservaveicular.model.Motorista;
 import com.br.utfpr.gabryel.reservaveicular.model.enums.TipoCnh;
-import com.br.utfpr.gabryel.reservaveicular.utils.MontarUtils;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -24,27 +25,46 @@ import java.time.format.DateTimeFormatter;
 
 public class MotoristaActivity extends AppCompatActivity {
 
-    private final MontarUtils montarUtils;
     private Spinner spinnerCnh;
     private EditText nomeEdit;
     private EditText dtNascimentoEdit;
     private CheckBox checkAtivo;
     private RadioButton radioSim, radioNao;
 
-    public MotoristaActivity() {
-        this.montarUtils = new MontarUtils(this);
+    public static final String MODO = "MODO";
+    public static final Integer NEW = 0;
+    public static final Integer EDIT = 1;
+
+    public static void editarMotorista(AppCompatActivity activity, final Motorista motorista) {
+        Intent intent = new Intent(activity, MotoristaActivity.class);
+        intent.putExtra(MODO, EDIT);
+        intent.putExtras(putBundle(motorista));
+        activity.startActivityForResult(intent, EDIT);
+    }
+
+    public static void novoMotorista(AppCompatActivity activity) {
+        Intent intent = new Intent(activity, MotoristaActivity.class);
+        intent.putExtra(MODO, NEW);
+        activity.startActivityForResult(intent, NEW);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_motorista);
-
-        spinnerCnh = findViewById(R.id.spinnerCnh);
-        spinnerCnh.setAdapter(montarUtils.carregarDadosSpinner(TipoCnh.descricaoList()));
-
         startCompomentes();
-        atualizarCampos();
+
+        spinnerCnh.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, TipoCnh.descricaoList()));
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        int modo = bundle.getInt(MODO, NEW);
+        if (modo == NEW)
+            setTitle(getString(R.string.title_cadastro_motorista));
+        else {
+            setTitle(getString(R.string.title_alterar_motorista));
+            atualizarCampos();
+        }
     }
 
     public void showDatePickerDialog(View v) {
@@ -57,15 +77,14 @@ public class MotoristaActivity extends AppCompatActivity {
         if (radioNao.isChecked()) radioSim.setChecked(false);
     }
 
-    public void limparCampos(View v) {
-        nomeEdit.setText(null);
-        dtNascimentoEdit.setText(null);
-        checkAtivo.setChecked(false);
-        radioSim.setChecked(false);
-        radioNao.setChecked(false);
-        spinnerCnh.setSelection(0);
+    public void cancelarEdicao(View v) {
+        onBackPressed();
+    }
 
-        Toast.makeText(this, getString(R.string.info_limpar_campos), Toast.LENGTH_SHORT).show();
+    @Override
+    public void onBackPressed() {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
     }
 
     public void validarAlteracoes(View v) {
@@ -74,30 +93,26 @@ public class MotoristaActivity extends AppCompatActivity {
         String dtNascinemto = dtNascimentoEdit.getText().toString();
         mensagem = validarEInformar(nome, dtNascinemto, radioSim.isChecked() == radioNao.isChecked());
 
-        if (StringUtils.isBlank(mensagem)) {
-            mensagem = salvar(nome, dtNascinemto, radioSim.isChecked() ? radioSim.isChecked() : radioNao.isChecked(),
-                    TipoCnh.values()[spinnerCnh.getSelectedItemPosition()], checkAtivo.isChecked());
-
-            if (mensagem.equalsIgnoreCase(getString(R.string.info_sucesso_salvar))) {
-                nomeEdit.setText(null);
-                dtNascimentoEdit.setText(null);
-                checkAtivo.setChecked(false);
-                radioSim.setChecked(false);
-                radioNao.setChecked(false);
-                spinnerCnh.setSelection(0);
-            }
+        if (StringUtils.isNotBlank(mensagem)) {
+            Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
-    }
+        Motorista motorista = new Motorista(nome,
+                LocalDate.parse(dtNascinemto, DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                TipoCnh.values()[spinnerCnh.getSelectedItemPosition()],
+                radioSim.isChecked() ? radioSim.isChecked() : radioNao.isChecked(),
+                checkAtivo.isChecked());
 
-    private String salvar(String nome, String dtNascinemto, Boolean possuiEar, TipoCnh tipoCnh, boolean ativo) {
-        try {
-            Motorista motorista = new Motorista(nome, LocalDate.parse(dtNascinemto, DateTimeFormatter.ofPattern("dd/MM/yyyy")), tipoCnh, possuiEar, ativo);
-            return motorista.getNome() != null ? getString(R.string.info_sucesso_salvar) : getString(R.string.info_erro_salvar);
-        } catch (Exception e) {
-            return getString(R.string.info_erro_interno);
-        }
+        Intent intent = new Intent();
+        intent.putExtra("id_motorista", motorista.getId());
+        intent.putExtra("nome_motorista", motorista.getNome());
+        intent.putExtra("dt_nascimento_motorista", motorista.getDtNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        intent.putExtra("cnh_motorista", motorista.getCnh().getKey());
+        intent.putExtra("ear_motorista", motorista.isPossuiEar());
+        intent.putExtra("ativo_motorista", motorista.isAtivo());
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
     private String validarEInformar(String nome, String dtNascinemto, boolean possuiEar) {
@@ -110,7 +125,19 @@ public class MotoristaActivity extends AppCompatActivity {
         return null;
     }
 
+    private static Bundle putBundle(Motorista motorista) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id_motorista", motorista.getId());
+        bundle.putString("nome_motorista", motorista.getNome());
+        bundle.putString("dt_nascimento_motorista", motorista.getDtNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        bundle.putString("cnh_motorista", motorista.getCnh().getKey());
+        bundle.putBoolean("ear_motorista", motorista.isPossuiEar());
+        bundle.putBoolean("ativo_motorista", motorista.isAtivo());
+        return bundle;
+    }
+
     private void startCompomentes() {
+        spinnerCnh = findViewById(R.id.spinnerCnh);
         nomeEdit = findViewById(R.id.editNomeMotorista);
         dtNascimentoEdit = findViewById(R.id.editDtNascimento);
         checkAtivo = findViewById(R.id.cadastroAtivo);

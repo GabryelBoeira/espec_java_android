@@ -1,11 +1,14 @@
 package com.br.utfpr.gabryel.reservaveicular.model;
 
+import android.os.Bundle;
+
 import com.br.utfpr.gabryel.reservaveicular.model.enums.TipoCnh;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Motorista {
 
@@ -29,7 +32,6 @@ public class Motorista {
     }
 
     public Motorista(String nome, LocalDate dtNascimento, TipoCnh cnh, boolean possuiEar, boolean ativo) {
-
         this.nome = nome;
         this.dtNascimento = dtNascimento;
         this.cnh = cnh;
@@ -85,7 +87,7 @@ public class Motorista {
         this.ativo = ativo;
     }
 
-    public List<Motorista> criarBaseDados() {
+    public ArrayList<Motorista> criarBaseDados() {
         var motoristaList = new ArrayList<Motorista>();
         motoristaList.add(new Motorista(1, "Julian", LocalDate.parse("12/27/6816", DateTimeFormatter.ofPattern("MM/dd/yyyy")), TipoCnh.A, true, true));
         motoristaList.add(new Motorista(2, "Bart", LocalDate.parse("07/05/7081", DateTimeFormatter.ofPattern("MM/dd/yyyy")), TipoCnh.B, true, true));
@@ -103,5 +105,15 @@ public class Motorista {
         motoristaList.add(new Motorista(14, "Tom", LocalDate.parse("03/16/7955", DateTimeFormatter.ofPattern("MM/dd/yyyy")), TipoCnh.D, false, false));
         motoristaList.add(new Motorista(15, "Wade", LocalDate.parse("03/27/3488", DateTimeFormatter.ofPattern("MM/dd/yyyy")), TipoCnh.E, true, true));
         return motoristaList;
+    }
+
+    public Motorista bundleParseMotorista(Bundle bundle, int id) {
+        this.id = id;
+        this.nome = bundle.getString("nome_motorista");
+        this.dtNascimento = LocalDate.parse(bundle.getString("dt_nascimento_motorista"), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.cnh = TipoCnh.valueOf(bundle.getString("cnh_motorista"));
+        this.possuiEar = bundle.getBoolean("ear_motorista");
+        this.ativo = bundle.getBoolean("ativo_motorista");
+        return this;
     }
 }

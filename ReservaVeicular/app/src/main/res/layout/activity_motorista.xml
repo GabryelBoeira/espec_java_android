@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -13,22 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".MainActivity">
-
-                <TextView
-                    android:id="@+id/labelCadastro"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="@dimen/margin_start"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="@dimen/margin_end"
-                    android:layout_marginBottom="32dp"
-                    android:text="@string/title_cadastro_motorista"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toTopOf="@+id/editNomeMotorista"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/editNomeMotorista"
@@ -42,9 +27,8 @@
                     android:inputType="textPersonName"
                     android:textColorHint="@color/color_hint"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/labelCadastro" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/editDtNascimento"
@@ -58,7 +42,7 @@
                     android:importantForAutofill="no"
                     android:inputType="date"
                     android:onClick="showDatePickerDialog"
-                    android:textColorHint="@color/color_hint"
+                    android:textColorHint="#9E9E9E"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editNomeMotorista" />
@@ -132,6 +116,7 @@
                     android:layout_marginStart="@dimen/margin_start"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="@dimen/margin_end"
+                    android:minHeight="48dp"
                     android:text="@string/label_cadastro_ativo"
                     app:layout_constraintBottom_toTopOf="@+id/btnLimpar"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -145,9 +130,9 @@
                     android:layout_marginStart="@dimen/margin_start"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="@dimen/margin_end"
-                    android:onClick="limparCampos"
+                    android:onClick="cancelarEdicao"
                     android:layout_marginBottom="@dimen/margin_bottom"
-                    android:text="@string/label_limpar"
+                    android:text="@string/label_cancelar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
