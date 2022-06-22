@@ -85,6 +85,10 @@ public class MotoristaActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.info_limpar_campos), Toast.LENGTH_SHORT).show();
             return true;
         }
+        if (menuItem.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
         return super.onOptionsItemSelected(menuItem);
     }
 
@@ -115,10 +119,6 @@ public class MotoristaActivity extends AppCompatActivity {
     public void validarEar(View v) {
         if (radioSim.isChecked()) radioNao.setChecked(false);
         if (radioNao.isChecked()) radioSim.setChecked(false);
-    }
-
-    public void cancelarEdicao(View v) {
-        onBackPressed();
     }
 
     private void validarAlteracoes() {

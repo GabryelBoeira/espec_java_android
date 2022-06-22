@@ -2,9 +2,13 @@ package com.br.utfpr.gabryel.reservaveicular;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,21 +38,24 @@ public class MainActivity extends AppCompatActivity {
         MotoristaActivity.novoMotorista(this);
     }
 
+    private void excluirMotorista(int posicao) {
+        motoristaList.remove(posicao);
+        Toast.makeText(this, R.string.info_removido_sucesso, Toast.LENGTH_SHORT).show();
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         listViewMotoristas = findViewById(R.id.listViewMotorista);
-        listViewMotoristas.setOnItemClickListener((parent, view, position, id) ->
-                editarMotorista(position, (Motorista) parent.getItemAtPosition(position))
-        );
+//        listViewMotoristas.setOnItemClickListener((parent, view, position, id) ->
+//                editarMotorista(position, (Motorista) parent.getItemAtPosition(position))
+//        );
 
-        listViewMotoristas.setOnItemLongClickListener((parent, view, position, id) -> {
-            editarMotorista(position, (Motorista) parent.getItemAtPosition(position));
-            return true;
-        });
         carregarInformacoesListView();
+        registerForContextMenu(listViewMotoristas);
     }
 
     @Override
@@ -71,6 +78,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, view, menuInfo);
+        getMenuInflater().inflate(R.menu.menu_flutuante_activity_main, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        var info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        if (item.getItemId() == R.id.item_alterar) {
+            editarMotorista(info.position, motoristaList.get(info.position));
+            return true;
+        }
+        if (item.getItemId() == R.id.item_excluir) {
+            excluirMotorista(info.position);
+            return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -85,4 +112,5 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     }
+
 }

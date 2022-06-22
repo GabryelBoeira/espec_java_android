@@ -44,7 +44,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         String mes = month < 9 ? "0" + (month + 1) : (month + 1) + "";
-        String dia = day < 9 ? "0" + (day) : (day) + "";
+        String dia = day <= 9 ? "0" + (day) : (day) + "";
         dataText.setText(dia + "/" + mes + "/" + year);
     }
 }
