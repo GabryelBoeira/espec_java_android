@@ -7,8 +7,6 @@ import com.br.utfpr.gabryel.reservaveicular.model.enums.TipoCnh;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class Motorista {
 

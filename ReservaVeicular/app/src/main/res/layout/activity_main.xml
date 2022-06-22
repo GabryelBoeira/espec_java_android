@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="sobre"
-            android:text="@string/label_sobre"
-            style="?android:attr/buttonBarButtonStyle" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:onClick="novoMotorista"
-            android:text="@string/label_novo"
-            style="?android:attr/buttonBarButtonStyle" />
-
-    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/content_frame"
@@ -39,7 +15,19 @@
         <ListView
             android:id="@+id/listViewMotorista"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+        </ListView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_novo_motorista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="15dp"
+            android:clickable="true"
+            android:contentDescription="@string/label_novo"
+            app:srcCompat="@android:drawable/ic_input_add"/>
 
     </FrameLayout>
+
 </android.widget.LinearLayout>
