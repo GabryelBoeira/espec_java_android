@@ -1,5 +1,6 @@
 package com.br.utfpr.gabryel.reservaveicular;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -11,6 +12,10 @@ public class AppInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_info);
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override

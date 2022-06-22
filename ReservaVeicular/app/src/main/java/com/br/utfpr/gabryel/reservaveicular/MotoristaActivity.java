@@ -1,5 +1,6 @@
 package com.br.utfpr.gabryel.reservaveicular;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,6 +42,12 @@ public class MotoristaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_motorista);
+
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         startCompomentes();
 
         spinnerCnh.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, TipoCnh.descricaoList()));
