@@ -2,6 +2,7 @@ package com.br.utfpr.gabryel.reservaveicular;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MotoristaActivity.class);
             startActivity(intent);
         });
+    }
+
+    public void sobre(View v) {
+        Intent intent = new Intent(this, AppInfoActivity.class);
+        startActivity(intent);
     }
 
 }

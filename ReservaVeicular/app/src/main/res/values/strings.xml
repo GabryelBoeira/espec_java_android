@@ -19,6 +19,10 @@
     <string name="label_cadastro_ativo">Cadastro Ativo</string>
     <string name="label_possui_ear">Possui EAR</string>
     <string name="label_tipo_cnh">Tipo da CNH</string>
+    <string name="label_email_suporte">E-mail para contato :</string>
+    <string name="label_desenvolvido">Desenvolvidor Por:</string>
+    <string name="label_sobre_app">Sobre o app :</string>
+    <string name="label_curso">Curso :</string>
 
     <!-- textos de aviso. -->
     <string name="info_erro_salvar">Erro ao Salvar</string>
@@ -32,6 +36,11 @@
     <string name="info_obridatorio">deve ser informado</string>
     <string name="info_motorista_selecionado">"Motorista selecionado: \"%s\"</string>
     <string name="novo_motorista">Novo Motorista</string>
+    <string name="info_nome_desenvolvedor">Gabryel J. Boeira</string>
+    <string name="info_email_contato">gabryel392@gmail.com</string>
+    <string name="info_sobre_app">O aplicativo tem como objetivo realizar e gerenciar as reservas de utilização de veículos em uma mesma residência, utilizando data e o tempo de utilização, as informações do veículo que irá utilizar, e quem estará utilizando o veículo. Realizado para a disciplina de Android</string>
+    <string name="label_sobre">Sobre</string>
+    <string name="info_curso">Especialização em Tecnologia Java - UTFPR</string>
 
 
 </resources>
