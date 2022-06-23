@@ -46,4 +46,6 @@
     <string name="info_curso">Especialização em Tecnologia Java - UTFPR</string>
     <string name="info_removido_sucesso">Removido com sucesso</string>
     <string name="modo_noturno">Modo noturno</string>
+    <string name="info_apagar_registro">"Deseja apagar esse registro ? "</string>
+
 </resources>

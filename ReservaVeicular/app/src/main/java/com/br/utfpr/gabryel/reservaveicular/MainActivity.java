@@ -16,8 +16,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.view.ActionMode;
+import androidx.fragment.app.DialogFragment;
 
 import com.br.utfpr.gabryel.reservaveicular.adapter.MotoristaAdapter;
+import com.br.utfpr.gabryel.reservaveicular.fragment.ConfirmarAcaoFragment;
 import com.br.utfpr.gabryel.reservaveicular.model.Motorista;
 
 import java.util.List;
@@ -76,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             if (item.getItemId() == R.id.item_excluir) {
-                excluirMotorista(cadastroSelecionado);
+                DialogFragment dialog = new ConfirmarAcaoFragment(getString(R.string.info_apagar_registro));
+                dialog.show(getSupportFragmentManager(), "alertDialog");
                 mode.finish();
                 return true;
             }
