@@ -12,12 +12,12 @@
         <entry key="app/src/main/res/layout/activity_main3.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/activity_motorista.xml" value="0.24076809453471196" />
         <entry key="app/src/main/res/layout/content_main3.xml" value="0.35260416666666666" />
-        <entry key="app/src/main/res/layout/custom_adapter_view_motorista.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/custom_adapter_view_motorista.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/settings_activity.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/menu/menu_acoes.xml" value="0.35104166666666664" />
-        <entry key="app/src/main/res/menu/menu_activity_main.xml" value="0.17916666666666667" />
+        <entry key="app/src/main/res/menu/menu_activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/menu/menu_activity_motorista.xml" value="0.33" />
         <entry key="app/src/main/res/menu/menu_flutuante_activity_main.xml" value="0.3515625" />
       </map>

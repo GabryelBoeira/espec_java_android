@@ -1,6 +1,8 @@
 package com.br.utfpr.gabryel.reservaveicular;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.view.ActionMode;
 
 import com.br.utfpr.gabryel.reservaveicular.adapter.MotoristaAdapter;
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private ActionMode carregarAcoes;
     private View viewSelecionadaAcao;
 
+    private static final String ARQUIVO_PREFERENCIA_KEY = "com.br.utfpr.gabryel.reservaveicular.sharedPreferences";
+    private static final String MODO = "MODO";
+    private static final String SELECIONADO = "SELECIONADO";
+
     private void carregarInformacoesListView() {
         listViewMotoristas.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listViewMotoristas.setOnItemClickListener((parent, view, position, id) ->
@@ -42,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             carregarAcoes = startSupportActionMode(action);
             return true;
         });
+
         adapter = new MotoristaAdapter(this, motoristaList);
         listViewMotoristas.setAdapter(adapter);
     }
@@ -77,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            if (viewSelecionadaAcao != null) viewSelecionadaAcao.setBackgroundColor(Color.TRANSPARENT);
+            if (viewSelecionadaAcao != null)
+                viewSelecionadaAcao.setBackgroundColor(Color.TRANSPARENT);
             carregarAcoes = null;
             viewSelecionadaAcao = null;
             listViewMotoristas.setEnabled(true);
@@ -104,6 +113,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences preferencia = getSharedPreferences(ARQUIVO_PREFERENCIA_KEY, Context.MODE_PRIVATE);
+        AppCompatDelegate.setDefaultNightMode(preferencia.getInt(MODO, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM));
+        setTheme(preferencia.getBoolean(SELECIONADO, false) ? R.style.Theme_ReservaVeicular_dark :  R.style.Theme_ReservaVeicular_light);
+
         listViewMotoristas = findViewById(R.id.listViewMotorista);
         carregarInformacoesListView();
         registerForContextMenu(listViewMotoristas);
@@ -111,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        SharedPreferences preferencia = getSharedPreferences(ARQUIVO_PREFERENCIA_KEY, Context.MODE_PRIVATE);
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        menu.getItem(2).setChecked(preferencia.getBoolean(SELECIONADO, false));
         return true;
     }
 
@@ -125,27 +140,27 @@ public class MainActivity extends AppCompatActivity {
             novoMotorista();
             return true;
         }
+        if (menuItem.getItemId() == R.id.item_modo_noturno) {
+            if (menuItem.isChecked()) {
+                menuItem.setChecked(false);
+                atualizarPreferenciarModoNoturno(AppCompatDelegate.MODE_NIGHT_NO, false);
+            } else {
+                menuItem.setChecked(true);
+                atualizarPreferenciarModoNoturno(AppCompatDelegate.MODE_NIGHT_YES, true);
+            }
+            return true;
+        }
         return super.onOptionsItemSelected(menuItem);
     }
-    //    @Override
-//    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
-//        super.onCreateContextMenu(menu, view, menuInfo);
-//        getMenuInflater().inflate(R.menu.menu_flutuante_activity_main, menu);
-//    }
-//
-//    @Override
-//    public boolean onContextItemSelected(MenuItem item) {
-//        var info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-//        if (item.getItemId() == R.id.item_alterar) {
-//            editarMotorista(info.position, motoristaList.get(info.position));
-//            return true;
-//        }
-//        if (item.getItemId() == R.id.item_excluir) {
-//            excluirMotorista(info.position);
-//            return true;
-//        }
-//        return super.onContextItemSelected(item);
-//    }
+
+    private void atualizarPreferenciarModoNoturno(final int isModoNoturno, boolean check) {
+        SharedPreferences.Editor editor = getSharedPreferences(ARQUIVO_PREFERENCIA_KEY, Context.MODE_PRIVATE).edit();
+        editor
+                .putInt(MODO, isModoNoturno)
+                .putBoolean(SELECIONADO, check)
+                .apply();
+        AppCompatDelegate.setDefaultNightMode(isModoNoturno);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -44,6 +44,6 @@
     <string name="info_sucesso_salvar">Saved successfully</string>
     <string name="info_sobre_app">The application aims to make and manage reservations for the use of vehicles in the same residence, using the date and time of use, the information of the vehicle that will be used, and who will be using the vehicle. Made for the Android discipline.</string>
     <string name="label_alterar_cadastro">Change Registration</string>
-
+    <string name="modo_noturno">Night mode</string>
 
 </resources>

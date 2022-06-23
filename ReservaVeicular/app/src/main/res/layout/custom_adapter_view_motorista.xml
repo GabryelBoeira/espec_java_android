@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_row="1"
         android:layout_column="0"
-        android:layout_below="@+id/info_nome_motorista"
         android:layout_marginStart="@dimen/margin_start"
         android:layout_marginTop="4dp"
         android:text="@string/label_data_nascimento" />
@@ -36,10 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_row="0"
         android:layout_column="2"
-        android:layout_marginStart="50dp"
         android:layout_marginTop="@dimen/margin_top"
         android:layout_marginEnd="@dimen/margin_end"
-        android:layout_toEndOf="@+id/info_dt_nascimento"
         android:text="@string/label_cnh" />
 
     <TextView
@@ -48,9 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_row="1"
         android:layout_column="2"
-        android:layout_below="@+id/info_cnh"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="@dimen/margin_end"
-        android:layout_toEndOf="@+id/info_dt_nascimento"
         android:text="@string/label_ativo_inativo" />
 </GridLayout>
