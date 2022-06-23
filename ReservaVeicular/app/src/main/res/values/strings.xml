@@ -1,51 +1,49 @@
 <resources>
     <string name="app_name">Reserva Veicular</string>
 
-    <!-- textos de titulo. -->
-    <string name="title_cadastro_motorista">Cadastro do Motorista</string>
-    <string name="title_alterar_motorista">Alterar Motorista</string>
-
     <!-- textos de descricao. -->
-    <string name="label_ativo">Ativo</string>
-    <string name="label_inativo">Inativo</string>
-    <string name="label_nome">Nome</string>
-    <string name="label_data_nascimento">Data de Nascimento</string>
-    <string name="label_nao">Não</string>
-    <string name="label_sim">Sim</string>
-    <string name="label_limpar">Limpar</string>
-    <string name="label_salvar">Salvar</string>
-    <string name="label_ativo_inativo">Ativo/Inativo</string>
-    <string name="label_cnh">CNH</string>
-    <string name="label_selecione_cnh">Selecione um tipo de CNH:</string>
-    <string name="label_cadastro_ativo">Cadastro Ativo</string>
-    <string name="label_possui_ear">Possui EAR</string>
-    <string name="label_tipo_cnh">Tipo da CNH</string>
-    <string name="label_email_suporte">E-mail para contato :</string>
-    <string name="label_desenvolvido">Desenvolvidor Por:</string>
-    <string name="label_sobre_app">Sobre o app :</string>
-    <string name="label_curso">Curso :</string>
-    <string name="label_novo">novo</string>
-    <string name="label_cancelar">Cancelar</string>
-    <string name="label_sobre">Sobre</string>
-    <string name="label_alterar">Alterar</string>
-    <string name="label_excluir">Excluir</string>
+    <string name="label_ativo">Active</string>
+    <string name="label_inativo">Inactive</string>
+    <string name="label_nome">Name</string>
+    <string name="label_data_nascimento">Birth date</string>
+    <string name="label_nao">No</string>
+    <string name="label_sim">Yes</string>
+    <string name="label_limpar">Clear</string>
+    <string name="label_salvar">Save</string>
+    <string name="label_ativo_inativo">Active/Inactive</string>
+    <string name="label_cnh">Driver\'s License</string>
+    <string name="label_selecione_cnh">Select a type of driver\'s license:</string>
+    <string name="label_cadastro_ativo">Active Registration</string>
+    <string name="label_possui_ear">Has EAR</string>
+    <string name="label_tipo_cnh">Driver\'s License Type</string>
+    <string name="label_email_suporte">Contact email :</string>
+    <string name="label_desenvolvido">Developer By:</string>
+    <string name="label_sobre_app">About the app :</string>
+    <string name="label_curso">Course :</string>
+    <string name="label_novo">new</string>
+    <string name="label_cancelar">Cancel</string>
+    <string name="label_sobre">About</string>
+    <string name="label_alterar">Edit</string>
+    <string name="label_excluir">Delete</string>
+    <string name="label_cadastro_novo">New register</string>
 
     <!-- textos de aviso. -->
-    <string name="info_erro_salvar">Erro ao Salvar</string>
-    <string name="info_sucesso_salvar">Salvo com Sucesso</string>
-    <string name="info_erro_interno">Erro interno</string>
-    <string name="info_nome">Nome: \"%s\"</string>
-    <string name="info_cnh">CNH: \"%s\"</string>
-    <string name="info_data_nascimento">Data de Nascimento: \"%s\"</string>
-    <string name="info_possui_ear">Possui EAR: \"%s\"</string>
-    <string name="info_limpar_campos">Campos Limpos com sucesso</string>
-    <string name="info_obridatorio">deve ser informado</string>
-    <string name="info_motorista_selecionado">"Motorista selecionado: \"%s\"</string>
+    <string name="info_erro_salvar">Error when saving</string>
+    <string name="info_erro_interno">Internal error</string>
+    <string name="info_nome">Name: \"%s\"</string>
+    <string name="info_cnh">Driver License: \"%s\"</string>
+    <string name="info_data_nascimento">Birth date: \"%s\"</string>
+    <string name="info_possui_ear">Has EAR: \"%s\"</string>
+    <string name="info_limpar_campos">Successfully Cleaned Fields</string>
+    <string name="info_obridatorio">must be informed</string>
+    <string name="info_motorista_selecionado">Selected driver: \"%s\"</string>
     <string name="info_nome_desenvolvedor">Gabryel J. Boeira</string>
     <string name="info_email_contato">gabryel392@gmail.com</string>
-    <string name="info_sobre_app">O aplicativo tem como objetivo realizar e gerenciar as reservas de utilização de veículos em uma mesma residência, utilizando data e o tempo de utilização, as informações do veículo que irá utilizar, e quem estará utilizando o veículo. Realizado para a disciplina de Android</string>
-    <string name="info_curso">Especialização em Tecnologia Java - UTFPR</string>
-    <string name="info_removido_sucesso">Removido com sucesso</string>
+    <string name="info_curso">Specialization in Java Technology - UTFPR</string>
+    <string name="info_removido_sucesso">"Successfully removed "</string>
+    <string name="info_sucesso_salvar">Saved successfully</string>
+    <string name="info_sobre_app">The application aims to make and manage reservations for the use of vehicles in the same residence, using the date and time of use, the information of the vehicle that will be used, and who will be using the vehicle. Made for the Android discipline.</string>
+    <string name="label_alterar_cadastro">Change Registration</string>
 
 
 </resources>

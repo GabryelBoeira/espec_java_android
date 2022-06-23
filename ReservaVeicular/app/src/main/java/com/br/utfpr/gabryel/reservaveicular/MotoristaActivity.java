@@ -54,9 +54,9 @@ public class MotoristaActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         int modo = bundle.getInt(MODO, NEW);
         if (modo == NEW)
-            setTitle(getString(R.string.title_cadastro_motorista));
+            setTitle(getString(R.string.label_cadastro_novo));
         else {
-            setTitle(getString(R.string.title_alterar_motorista));
+            setTitle(getString(R.string.label_alterar_cadastro));
             atualizarCampos(bundle);
         }
     }

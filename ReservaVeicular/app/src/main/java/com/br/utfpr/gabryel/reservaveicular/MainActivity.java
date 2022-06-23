@@ -3,7 +3,6 @@ package com.br.utfpr.gabryel.reservaveicular;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -128,8 +127,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(menuItem);
     }
-
-//    @Override
+    //    @Override
 //    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
 //        super.onCreateContextMenu(menu, view, menuInfo);
 //        getMenuInflater().inflate(R.menu.menu_flutuante_activity_main, menu);
