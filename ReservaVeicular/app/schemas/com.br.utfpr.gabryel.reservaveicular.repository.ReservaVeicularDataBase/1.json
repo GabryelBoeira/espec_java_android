@@ -1,0 +1,194 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "65c1965ff63755284739ae100ca21871",
+    "entities": [
+      {
+        "tableName": "motoristas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `nome` TEXT NOT NULL, `dtNascimento` INTEGER NOT NULL, `cnh` TEXT NOT NULL, `possuiEar` INTEGER NOT NULL, `ativo` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dtNascimento",
+            "columnName": "dtNascimento",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cnh",
+            "columnName": "cnh",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "possuiEar",
+            "columnName": "possuiEar",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ativo",
+            "columnName": "ativo",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "veiculos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `placa` TEXT, `cor` TEXT, `descricao` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "placa",
+            "columnName": "placa",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cor",
+            "columnName": "cor",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "reservas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `tipo` TEXT, `inicio` INTEGER, `fim` INTEGER, `idMotorista` INTEGER, `idVeiculo` INTEGER, FOREIGN KEY(`idMotorista`) REFERENCES `motoristas`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`idVeiculo`) REFERENCES `veiculos`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "inicio",
+            "columnName": "inicio",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fim",
+            "columnName": "fim",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idMotorista",
+            "columnName": "idMotorista",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idVeiculo",
+            "columnName": "idVeiculo",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_reservas_idMotorista",
+            "unique": false,
+            "columnNames": [
+              "idMotorista"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_reservas_idMotorista` ON `${TABLE_NAME}` (`idMotorista`)"
+          },
+          {
+            "name": "index_reservas_idVeiculo",
+            "unique": false,
+            "columnNames": [
+              "idVeiculo"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_reservas_idVeiculo` ON `${TABLE_NAME}` (`idVeiculo`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "motoristas",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idMotorista"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "veiculos",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idVeiculo"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '65c1965ff63755284739ae100ca21871')"
+    ]
+  }
+}

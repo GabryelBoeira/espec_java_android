@@ -1,24 +1,64 @@
 package com.br.utfpr.gabryel.reservaveicular.model;
 
+
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
 import com.br.utfpr.gabryel.reservaveicular.model.enums.FormaDeUso;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+@Entity(tableName = "reservas",
+        foreignKeys = {
+                @ForeignKey(entity = Motorista.class,
+                        parentColumns = "id",
+                        childColumns = "idMotorista"),
+                @ForeignKey(entity = Veiculo.class,
+                        parentColumns = "id",
+                        childColumns = "idVeiculo")
+        })
 public class Reserva {
 
-    private int id;
-    private FormaDeUso tipo;
-    private LocalDateTime dtInicio;
-    private LocalDateTime dtFim;
-    private Motorista motorista;
-    private Veiculo veiculo;
+    @PrimaryKey(autoGenerate = true)
+    private Long id;
 
-    public int getId() {
+    private FormaDeUso tipo;
+    private LocalDate inicio;
+    private LocalDate fim;
+
+    @ColumnInfo(index = true)
+    private Long idMotorista;
+
+    @ColumnInfo(index = true)
+    private Long idVeiculo;
+
+    public Reserva() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIdMotorista() {
+        return idMotorista;
+    }
+
+    public void setIdMotorista(Long idMotorista) {
+        this.idMotorista = idMotorista;
+    }
+
+    public Long getIdVeiculo() {
+        return idVeiculo;
+    }
+
+    public void setIdVeiculo(Long idVeiculo) {
+        this.idVeiculo = idVeiculo;
     }
 
     public FormaDeUso getTipo() {
@@ -29,35 +69,19 @@ public class Reserva {
         this.tipo = tipo;
     }
 
-    public LocalDateTime getDtInicio() {
-        return dtInicio;
+    public LocalDate getInicio() {
+        return inicio;
     }
 
-    public void setDtInicio(LocalDateTime dtInicio) {
-        this.dtInicio = dtInicio;
+    public void setInicio(LocalDate inicio) {
+        this.inicio = inicio;
     }
 
-    public LocalDateTime getDtFim() {
-        return dtFim;
+    public LocalDate getFim() {
+        return fim;
     }
 
-    public void setDtFim(LocalDateTime dtFim) {
-        this.dtFim = dtFim;
-    }
-
-    public Motorista getMotorista() {
-        return motorista;
-    }
-
-    public void setMotorista(Motorista motorista) {
-        this.motorista = motorista;
-    }
-
-    public Veiculo getVeiculo() {
-        return veiculo;
-    }
-
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
+    public void setFim(LocalDate fim) {
+        this.fim = fim;
     }
 }

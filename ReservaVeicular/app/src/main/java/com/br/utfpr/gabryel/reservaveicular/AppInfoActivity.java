@@ -1,7 +1,6 @@
 package com.br.utfpr.gabryel.reservaveicular;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;

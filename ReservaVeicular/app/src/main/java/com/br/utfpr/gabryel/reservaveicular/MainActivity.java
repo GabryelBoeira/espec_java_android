@@ -1,33 +1,36 @@
 package com.br.utfpr.gabryel.reservaveicular;
 
+import static android.os.AsyncTask.*;
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.view.ActionMode;
-import androidx.fragment.app.DialogFragment;
 
 import com.br.utfpr.gabryel.reservaveicular.adapter.MotoristaAdapter;
-import com.br.utfpr.gabryel.reservaveicular.fragment.ConfirmarAcaoFragment;
+import com.br.utfpr.gabryel.reservaveicular.fragment.ConfirmarAcaoBuilder;
 import com.br.utfpr.gabryel.reservaveicular.model.Motorista;
+import com.br.utfpr.gabryel.reservaveicular.repository.ReservaVeicularDataBase;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ListView listViewMotoristas;
-    private static final List<Motorista> motoristaList = new Motorista().criarBaseDados();
+    private List<Motorista> motoristaList;
     private Integer cadastroSelecionado = -1;
     private MotoristaAdapter adapter;
     private ActionMode carregarAcoes;
@@ -52,8 +55,15 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        adapter = new MotoristaAdapter(this, motoristaList);
-        listViewMotoristas.setAdapter(adapter);
+        execute(() -> {
+            ReservaVeicularDataBase database = ReservaVeicularDataBase.getDatabase(MainActivity.this);
+            motoristaList = database.motoristaDao().buscarTodosMotoristas();
+
+            MainActivity.this.runOnUiThread(() -> {
+                adapter = new MotoristaAdapter(this, motoristaList);
+                listViewMotoristas.setAdapter(adapter);
+            });
+        });
     }
 
     private ActionMode.Callback action = new ActionMode.Callback() {
@@ -71,15 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            var info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             if (item.getItemId() == R.id.item_alterar) {
                 editarMotorista(cadastroSelecionado, motoristaList.get(cadastroSelecionado));
                 mode.finish();
                 return true;
             }
             if (item.getItemId() == R.id.item_excluir) {
-                DialogFragment dialog = new ConfirmarAcaoFragment(getString(R.string.info_apagar_registro));
-                dialog.show(getSupportFragmentManager(), "alertDialog");
+                realizarAcaoExcuir(motoristaList.get(cadastroSelecionado));
                 mode.finish();
                 return true;
             }
@@ -95,6 +103,31 @@ public class MainActivity extends AppCompatActivity {
             listViewMotoristas.setEnabled(true);
         }
     };
+
+    private void realizarAcaoExcuir(final Motorista motorista) {
+        DialogInterface.OnClickListener onClick = (dialogInterface, i) -> {
+            if (i == DialogInterface.BUTTON_POSITIVE) {
+                execute(() -> {
+
+                    ReservaVeicularDataBase database =
+                            ReservaVeicularDataBase.getDatabase(MainActivity.this);
+                    database.motoristaDao().delete(motorista);
+                    MainActivity.this.runOnUiThread(() -> {
+                        motoristaList.remove(motorista);
+                        adapter.notifyDataSetChanged();
+                    });
+                });
+                return;
+            }
+            if (i == DialogInterface.BUTTON_NEGATIVE) return;
+        };
+
+        ConfirmarAcaoBuilder.criarAcaoComDoisPosicionamentos(this, onClick,
+                getString(R.string.info_apagar_registro),
+                getString(R.string.label_sim),
+                getString(R.string.label_nao)
+        );
+    }
 
     private void editarMotorista(final int position, Motorista motorista) {
         this.cadastroSelecionado = position;
@@ -118,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences preferencia = getSharedPreferences(ARQUIVO_PREFERENCIA_KEY, Context.MODE_PRIVATE);
         AppCompatDelegate.setDefaultNightMode(preferencia.getInt(MODO, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM));
-        setTheme(preferencia.getBoolean(SELECIONADO, false) ? R.style.Theme_ReservaVeicular_dark :  R.style.Theme_ReservaVeicular_light);
+        setTheme(preferencia.getBoolean(SELECIONADO, false) ? R.style.Theme_ReservaVeicular_dark : R.style.Theme_ReservaVeicular_light);
 
         listViewMotoristas = findViewById(R.id.listViewMotorista);
         carregarInformacoesListView();
@@ -169,14 +202,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            Bundle bundle = data.getExtras();
-
-            Motorista motoristaResult = new Motorista().bundleParseMotorista(bundle, cadastroSelecionado);
-            if (requestCode == MotoristaActivity.EDIT)
-                motoristaList.set(cadastroSelecionado, motoristaResult);
-            else
-                motoristaList.add(motoristaResult);
-            adapter.notifyDataSetChanged();
+            carregarInformacoesListView();
         }
     }
 

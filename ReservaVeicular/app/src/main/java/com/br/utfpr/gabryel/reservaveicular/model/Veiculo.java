@@ -1,11 +1,19 @@
 package com.br.utfpr.gabryel.reservaveicular.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "veiculos")
 public class Veiculo {
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String placa;
     private String cor;
-    private String deescricao;
+    private String descricao;
+
+    public Veiculo() {
+    }
 
     public int getId() {
         return id;
@@ -31,11 +39,11 @@ public class Veiculo {
         this.cor = cor;
     }
 
-    public String getDeescricao() {
-        return deescricao;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDeescricao(String deescricao) {
-        this.deescricao = deescricao;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }
